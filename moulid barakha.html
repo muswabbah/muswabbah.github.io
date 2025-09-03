@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moulid Barakha - Jamiul Muswabbah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Raleway:wght@400;500;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0d8b4e;
+            --primary-dark: #076c3d;
+            --secondary: #d4af37;
+            --light: #f8f9fa;
+            --dark: #1e2a3a;
+            --text: #333333;
+            --text-light: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 700;
+            line-height: 1.3;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .arabic {
+            font-family: 'Amiri', serif;
+            direction: rtl;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: var(--transition);
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .section {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--secondary);
+            margin: 15px auto;
+            border-radius: 2px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        .logo-text span {
+            color: var(--secondary);
+        }
+
+        .nav-menu {
+            display: flex;
+        }
+
+        .nav-item {
+            margin: 0 1rem;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary);
+            transition: var(--transition);
+        }
+
+        .nav-link:hover:after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .bar {
+            display: block;
+            width: 25px;
+            height: 3px;
+            margin: 5px auto;
+            background-color: var(--dark);
+            transition: var(--transition);
+        }
+
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(to right, var(--primary-dark), var(--primary));
+            color: var(--white);
+            padding: 8rem 0 4rem;
+            margin-top: 70px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            color: var(--white);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .breadcrumb {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .breadcrumb a {
+            color: var(--secondary);
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        /* Moulid Content */
+        .moulid-intro {
+            margin-bottom: 3rem;
+            text-align: center;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .table-container {
+            position: relative;
+            margin: 2rem 0;
+        }
+
+        .print-controls {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+        }
+
+        .events-table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: var(--shadow);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .events-table thead {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+
+        .events-table th {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .events-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .events-table tbody tr {
+            transition: var(--transition);
+        }
+
+        .events-table tbody tr:hover {
+            background-color: rgba(13, 139, 78, 0.05);
+        }
+
+        .events-table .tick {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+
+        /* Responsive table */
+        @media (max-width: 650px) {
+            .events-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-col h3 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-col h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--secondary);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--secondary);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-link:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .hamburger.active .bar:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger.active .bar:nth-child(1) {
+                transform: translateY(8px) rotate(45deg);
+            }
+
+            .hamburger.active .bar:nth-child(3) {
+                transform: translateY(-8px) rotate(-45deg);
+            }
+
+            .nav-menu {
+                position: fixed;
+                left: -100%;
+                top: 70px;
+                gap: 0;
+                flex-direction: column;
+                background-color: var(--white);
+                width: 100%;
+                text-align: center;
+                transition: 0.3s;
+                box-shadow: var(--shadow);
+                padding: 1.5rem 0;
+            }
+
+            .nav-menu.active {
+                left: 0;
+            }
+
+            .nav-item {
+                margin: 1rem 0;
+            }
+            
+            .print-controls {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .section {
+                padding: 3rem 0;
+            }
+        }
+        
+        /* Print Styles */
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .table-container, .table-container * {
+                visibility: visible;
+            }
+            
+            .table-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+            }
+            
+            .print-controls {
+                display: none;
+            }
+            
+            .events-table {
+                box-shadow: none;
+            }
+            
+            .events-table th {
+                background-color: var(--primary) !important;
+                color: white !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="home.html">
+                    <div class="logo-text">Jamiul<span>Muswabbah</span></div>
+                </a>
+            </div>
+
+            <nav>
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="home.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="home.html#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="home.html#programs" class="nav-link">Programs</a></li>
+                    <li class="nav-item"><a href="home.html#admission" class="nav-link">Admission</a></li>
+                    <li class="nav-item"><a href="home.html#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Moulid Barakha - Rabiul Awwal</h1>
+            <div class="breadcrumb">
+                <a href="home.html">Home</a>
+                <span>/</span>
+                <span>Moulid Barakha</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moulid Barakha Content -->
+    <section class="section">
+        <div class="container">
+            <div class="moulid-intro">
+                <h2>Celebrating the Blessed Birth of Prophet Muhammad (PBUH)</h2>
+                <p>Join us in commemorating the birth of our beloved Prophet Muhammad (Peace Be Upon Him) through special events, lectures, and spiritual gatherings throughout the holy month of Rabiul Awwal.</p>
+            </div>
+
+            <h2 class="section-title">Rabiul Awwal thabaruq</h2>
+            
+            <div class="table-container">
+                <div class="print-controls">
+                    <button id="print-table-btn" class="btn btn-primary">
+                        <i class="fas fa-print"></i> Print Table
+                    </button>
+                </div>
+                
+                <div style="overflow-x: auto;">
+                    <table class="events-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Date</th>
+                                <th>rabeeh</th>
+                                <th>Name</th>
+                                <th>Tick</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+<tr> 
+  <td>01</td> 
+  <td>August 24, 2025</td>  
+  <td>Rabiʿ al-Awwal 01</td>  
+  <td>Mammootty Haji K.C</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>02</td> 
+  <td>August 25, 2025</td>  
+  <td>Rabiʿ al-Awwal 02</td>  
+  <td>Mammootty Haji K.C</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>03</td> 
+  <td>August 26, 2025</td>  
+  <td>Rabiʿ al-Awwal 03</td>  
+  <td>Hamza Haji K.C</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>04</td> 
+  <td>August 27, 2025</td>  
+  <td>Rabiʿ al-Awwal 04</td>  
+  <td>Basheer K.P</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>05</td> 
+  <td>August 28, 2025</td>  
+  <td>Rabiʿ al-Awwal 05</td>  
+  <td>Hamza Haji Kokramuchi</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>06</td> 
+  <td>August 29, 2025</td>  
+  <td>Rabiʿ al-Awwal 06</td>  
+  <td>Kunju Maliyekkal</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>07</td> 
+  <td>August 30, 2025</td>  
+  <td>Rabiʿ al-Awwal 07</td>  
+  <td>Bava Nadukandi</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>08</td> 
+  <td>August 31, 2025</td>  
+  <td>Rabiʿ al-Awwal 08</td>  
+  <td>Ashraf Haji Kunookkara</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>09</td> 
+  <td>September 01, 2025</td>  
+  <td>Rabiʿ al-Awwal 09</td>  
+  <td>Samad Njarakodan</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>10</td> 
+  <td>September 02, 2025</td>  
+  <td>Rabiʿ al-Awwal 10</td>  
+  <td>Palekode Mohammed Haji</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>11</td> 
+  <td>September 03, 2025</td>  
+  <td>Rabiʿ al-Awwal 11</td>  
+  <td>P.K. Beerankutty Haji</td> 
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>12</td> 
+  <td>September 04, 2025</td>  
+  <td>Rabiʿ al-Awwal 12</td>  
+  <td>Mannil Thodi Abdurahman Haji</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>13</td> 
+  <td>September 05, 2025</td>  
+  <td>Rabiʿ al-Awwal 13</td>  
+  <td>.............................</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>14</td> 
+  <td>September 06, 2025</td>  
+  <td>Rabiʿ al-Awwal 14</td>  
+  <td>P.K. Sulaiman</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>15</td> 
+  <td>September 07, 2025</td>  
+  <td>Rabiʿ al-Awwal 15</td>  
+  <td>Shihab Anassan</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>16</td> 
+  <td>September 08, 2025</td>  
+  <td>Rabiʿ al-Awwal 16</td>  
+  <td>P.K. Mohammed Haji Karayil</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>17</td> 
+  <td>September 09, 2025</td>  
+  <td>Rabiʿ al-Awwal 17</td>  
+  <td>Babu Saleem</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>18</td> 
+  <td>September 10, 2025</td>  
+  <td>Rabiʿ al-Awwal 18</td>  
+  <td>Bappu Haji Ayyoli</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>19</td> 
+  <td>September 11, 2025</td>  
+  <td>Rabiʿ al-Awwal 19</td>  
+  <td>Maliyekkal Mammunni Haji</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>20</td> 
+  <td>September 12, 2025</td>  
+  <td>Rabiʿ al-Awwal 20</td>  
+  <td>Shihab (s/o Koyakka)</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>21</td> 
+  <td>September 13, 2025</td>  
+  <td>Rabiʿ al-Awwal 21</td>  
+  <td>Valavil Kunjappu Haji</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>22</td> 
+  <td>September 14, 2025</td>  
+  <td>Rabiʿ al-Awwal 22</td>  
+  <td>..................................</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>23</td> 
+  <td>September 15, 2025</td>  
+  <td>Rabiʿ al-Awwal 23</td>  
+  <td>Karayil Basheer</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>24</td> 
+  <td>September 16, 2025</td>  
+  <td>Rabiʿ al-Awwal 24</td>  
+  <td>P.K. Sulaiman Musliyar</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>25</td> 
+  <td>September 17, 2025</td>  
+  <td>Rabiʿ al-Awwal 25</td>  
+  <td>Ahmad Haji K.C</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>26</td> 
+  <td>September 18, 2025</td>  
+  <td>Rabiʿ al-Awwal 26</td>  
+  <td>Majeed K.C</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>27</td> 
+  <td>September 19, 2025</td>  
+  <td>Rabiʿ al-Awwal 27</td>  
+  <td>P.K. Abdurahman Haji</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>28</td> 
+  <td>September 20, 2025</td>  
+  <td>Rabiʿ al-Awwal 28</td>  
+  <td>P.K. Umar Haji</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>29</td> 
+  <td>September 21, 2025</td>  
+  <td>Rabiʿ al-Awwal 29</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>30</td> 
+  <td>September 22, 2025</td>  
+  <td>Rabiʿ al-Awwal 30</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>31</td> 
+  <td>September 23, 2025</td>  
+  <td>Rabiʿ al-Akhir 01</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>32</td> 
+  <td>September 24, 2025</td>  
+  <td>Rabiʿ al-Akhir 02</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>33</td> 
+  <td>September 25, 2025</td>  
+  <td>Rabiʿ al-Akhir 03</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>34</td> 
+  <td>September 26, 2025</td>  
+  <td>Rabiʿ al-Akhir 04</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>35</td> 
+  <td>September 27, 2025</td>  
+  <td>Rabiʿ al-Akhir 05</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>36</td> 
+  <td>September 28, 2025</td>  
+  <td>Rabiʿ al-Akhir 06</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>37</td> 
+  <td>September 29, 2025</td>  
+  <td>Rabiʿ al-Akhir 07</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>38</td> 
+  <td>September 30, 2025</td>  
+  <td>Rabiʿ al-Akhir 08</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>39</td> 
+  <td>October 01, 2025</td>  
+  <td>Rabiʿ al-Akhir 09</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>40</td> 
+  <td>October 02, 2025</td>  
+  <td>Rabiʿ al-Akhir 10</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+<tr> 
+  <td>41</td> 
+  <td>October 03, 2025</td>  
+  <td>Rabiʿ al-Akhir 11</td>  
+  <td>..............</td> 
+  <td class=""><i class="fas fa-check-circle"></i></td>
+</tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="text-center" style="margin-top: 3rem;">
+                <p>For more information about these events, please contact us:</p>
+                <a href="home.html#contact" class="btn btn-primary" style="margin-top: 1rem;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-container">
+                <div class="footer-col">
+                    <h3>Jamiul Muswabbah</h3>
+                    <p>Providing the best Islamic education in Malappuram with a focus on traditional knowledge and contemporary application.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/+918714756560" class="social-link"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Quick Links</h3>
+                    <div class="footer-links">
+                        <a href="home.html">Home</a>
+                        <a href="home.html#about">About Us</a>
+                        <a href="home.html#programs">Programs</a>
+                        <a href="home.html#admission">Admission</a>
+                        <a href="home.html#contact">Contact</a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Programs</h3>
+                    <div class="footer-links">
+                        <a href="#">Quran Studies</a>
+                        <a href="#">Islamic Sciences</a>
+                        <a href="#">Arabic Language</a>
+                        <a href="#">Youth Program</a>
+                        <a href="#">Weekend Classes</a>
+                    </div>
+                </div>
+                
+                <div class="footer-col">
+                    <h3>Contact Info</h3>
+                    <div class="footer-links">
+                        <a href="#"><i class="fas fa-map-marker-alt"></i> Malappuram, Kerala</a>
+                        <a href="tel:+918714756560"><i class="fas fa-phone"></i> +91 87147 56560</a>
+                        <a href="https://wa.me/+918714756560"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        <a href="mailto:info@jamiulmuswabbah.edu"><i class="fas fa-envelope"></i> info@jamiulmuswabbah.edu</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2025 Jamiul Muswabbah - Best Islamic Education in Malappuram. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        hamburger.addEventListener('click', () => {
+            hamburger.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+        
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Print table functionality
+        document.getElementById('print-table-btn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
