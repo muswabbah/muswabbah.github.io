@@ -723,17 +723,17 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="home.html">
-                    <img src="logo.png" alt="Your Logo" width="250" height="150">
+                    <div class="logo-text">Jamiul<span>Muswabbah</span></div>
                 </a>
             </div>
 
             <nav>
                 <ul class="nav-menu">
-                    <li class="nav-item"><a href="home.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="home.html#about" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="home.html#programs" class="nav-link">Programs</a></li>
-                    <li class="nav-item"><a href="#application" class="nav-link">Admission</a></li>
-                    <li class="nav-item"><a href="home.html#contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#programs" class="nav-link">Programs</a></li>
+                    <li class="nav-item"><a href="#admission" class="nav-link">Admission</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
 
@@ -1138,112 +1138,131 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    const header = document.querySelector('header');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         });
+    });
+    
+    // Header hide on scroll functionality
+    let lastScrollTop = 0;
+    const scrollThreshold = 60; // Minimum scroll distance to trigger hide/show
+    
+    window.addEventListener('scroll', function() {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+            // Scrolling down - hide header
+            header.style.transform = 'translateY(-100%)';
+        } else {
+            // Scrolling up - show header
+            header.style.transform = 'translateY(0)';
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // FAQ Accordion
+    const faqItems = document.querySelectorAll('.faq-item');
+    
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+            item.classList.toggle('active');
         });
-        
-        // FAQ Accordion
-        const faqItems = document.querySelectorAll('.faq-item');
-        
-        faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
+    });
+    
+    // Form validation and submission
+    const admissionForm = document.getElementById('admissionForm');
+    const successMessage = document.getElementById('successMessage');
+    
+    if (admissionForm) {
+        admissionForm.addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            question.addEventListener('click', () => {
-                item.classList.toggle('active');
-            });
-        });
-        
-        // Form validation and submission
-        const admissionForm = document.getElementById('admissionForm');
-        const successMessage = document.getElementById('successMessage');
-        
-        if (admissionForm) {
-            admissionForm.addEventListener('submit', function(e) {
-                e.preventDefault();
+            // Simple validation
+            let isValid = true;
+            const requiredFields = admissionForm.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                field.classList.remove('error');
                 
-                // Simple validation
-                let isValid = true;
-                const requiredFields = admissionForm.querySelectorAll('[required]');
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                }
                 
-                requiredFields.forEach(field => {
-                    field.classList.remove('error');
-                    
-                    if (!field.value.trim()) {
+                // Email validation
+                if (field.type === 'email' && field.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(field.value)) {
                         field.classList.add('error');
                         isValid = false;
                     }
-                    
-                    // Email validation
-                    if (field.type === 'email' && field.value) {
-                        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                        if (!emailPattern.test(field.value)) {
-                            field.classList.add('error');
-                            isValid = false;
-                        }
-                    }
-                });
-                
-                if (isValid) {
-                    // Form is valid - show success message
-                    admissionForm.reset();
-                    successMessage.classList.add('visible');
-                    
-                    // Scroll to success message
-                    successMessage.scrollIntoView({ behavior: 'smooth' });
-                    
-                    // Hide success message after 5 seconds
-                    setTimeout(() => {
-                        successMessage.classList.remove('visible');
-                    }, 5000);
-                } else {
-                    // Scroll to first error
-                    const firstError = admissionForm.querySelector('.error');
-                    if (firstError) {
-                        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    }
                 }
             });
             
-            // Remove error class when user starts typing
-            const formInputs = admissionForm.querySelectorAll('input, textarea, select');
-            formInputs.forEach(input => {
-                input.addEventListener('input', function() {
-                    if (this.classList.contains('error')) {
-                        this.classList.remove('error');
-                    }
-                });
-            });
-        }
+            if (isValid) {
+                // Form is valid - show success message
+                admissionForm.reset();
+                successMessage.classList.add('visible');
+                
+                // Scroll to success message
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+                
+                // Hide success message after 5 seconds
+                setTimeout(() => {
+                    successMessage.classList.remove('visible');
+                }, 5000);
+            } else {
+                // Scroll to first error
+                const firstError = admissionForm.querySelector('.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        });
         
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+        // Remove error class when user starts typing
+        const formInputs = admissionForm.querySelectorAll('input, textarea, select');
+        formInputs.forEach(input => {
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    this.classList.remove('error');
                 }
             });
         });
-    </script>
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
 </body>
 </html>
