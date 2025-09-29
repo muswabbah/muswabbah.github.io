@@ -1058,82 +1058,83 @@
     </footer>
 
     <script>
-        // Mobile Menu Toggle
-        const hamburger = document.querySelector('.hamburger');
-        const navMenu = document.querySelector('.nav-menu');
-        
-        hamburger.addEventListener('click', () => {
-            hamburger.classList.toggle('active');
-            navMenu.classList.toggle('active');
+    // Mobile Menu Toggle
+    const hamburger = document.querySelector('.hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+    
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
+    
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navMenu.classList.remove('active');
         });
+    });
+    
+    // Testimonial Slider
+    const testimonials = document.querySelectorAll('.testimonial');
+    const dots = document.querySelectorAll('.control-dot');
+    let currentTestimonial = 0;
+    
+    function showTestimonial(index) {
+        testimonials.forEach(testimonial => testimonial.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
         
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
-            });
+        testimonials[index].classList.add('active');
+        dots[index].classList.add('active');
+        currentTestimonial = index;
+    }
+    
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            showTestimonial(index);
         });
-        
-        // Testimonial Slider
-        const testimonials = document.querySelectorAll('.testimonial');
-        const dots = document.querySelectorAll('.control-dot');
-        let currentTestimonial = 0;
-        
-        function showTestimonial(index) {
-            testimonials.forEach(testimonial => testimonial.classList.remove('active'));
-            dots.forEach(dot => dot.classList.remove('active'));
+    });
+    
+    // Auto rotate testimonials
+    setInterval(() => {
+        currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+        showTestimonial(currentTestimonial);
+    }, 5000);
+    
+    // Form submission
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message. We will contact you soon!');
+            contactForm.reset();
+        });
+    }
+    
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
             
-            testimonials[index].classList.add('active');
-            dots[index].classList.add('active');
-            currentTestimonial = index;
-        }
-        
-        dots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const index = parseInt(dot.getAttribute('data-index'));
-                showTestimonial(index);
-            });
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
+            }
         });
-        
-        // Auto rotate testimonials
-        setInterval(() => {
-            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
-            showTestimonial(currentTestimonial);
-        }, 5000);
-        
-        // Form submission
-        const contactForm = document.getElementById('contactForm');
-        if (contactForm) {
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Thank you for your message. We will contact you soon!');
-                contactForm.reset();
-            });
-        }
-        
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        // Video controls
-        const video = document.querySelector('.video-background');
-        const muteToggle = document.getElementById('muteToggle');
-        let isMuted = true;
-        
+    });
+    
+    // Video controls
+    const video = document.querySelector('.video-background');
+    const muteToggle = document.getElementById('muteToggle');
+    let isMuted = true;
+    
+    if (muteToggle && video) {
         muteToggle.addEventListener('click', () => {
             isMuted = !isMuted;
             video.muted = isMuted;
@@ -1148,25 +1149,70 @@
                 video.pause();
             }
         });
+    }
+    
+    // Enhanced Header hide on scroll functionality
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
+    const scrollThreshold = 100; // Increased threshold for better UX
+    const headerHeight = header ? header.offsetHeight : 0;
+    
+    // Add necessary CSS for smooth transition
+    const style = document.createElement('style');
+    style.textContent = `
+        header {
+            transition: transform 0.3s ease-in-out;
+        }
+        header.hidden {
+            transform: translateY(-100%);
+        }
+    `;
+    document.head.appendChild(style);
+    
+    window.addEventListener('scroll', function() {
+        if (!header) return;
         
-        // Header hide on scroll up functionality
-        let lastScrollTop = 0;
-        const header = document.querySelector('header');
-        const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
-        window.addEventListener('scroll', function() {
-            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            
-            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
-                // Scrolling down
-                header.classList.add('hidden');
-            } else {
-                // Scrolling up
+        // Add a small buffer to prevent flickering at the top
+        const buffer = 5;
+        
+        if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+            // Scrolling down - hide header
+            header.classList.add('hidden');
+        } else {
+            // Scrolling up - show header
+            if (scrollTop + buffer < lastScrollTop || scrollTop <= scrollThreshold) {
                 header.classList.remove('hidden');
             }
-            
-            lastScrollTop = scrollTop;
-        });
-    </script>
+        }
+        
+        lastScrollTop = scrollTop;
+    });
+    
+    // Additional touch events for better mobile experience
+    let touchStartY = 0;
+    let touchEndY = 0;
+    
+    document.addEventListener('touchstart', function(e) {
+        touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
+    
+    document.addEventListener('touchend', function(e) {
+        if (!header) return;
+        
+        touchEndY = e.changedTouches[0].screenY;
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Swipe up detection (scrolling down)
+        if (touchStartY - touchEndY > 50 && scrollTop > scrollThreshold) {
+            header.classList.add('hidden');
+        }
+        // Swipe down detection (scrolling up)
+        else if (touchEndY - touchStartY > 50) {
+            header.classList.remove('hidden');
+        }
+    }, { passive: true });
+</script>
 </body>
 </html>
