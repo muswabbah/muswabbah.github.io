@@ -136,6 +136,11 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: transform 0.4s ease;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         .header-container {
@@ -289,12 +294,78 @@
             font-size: 1.2rem;
         }
 
+        /* Mobile table improvements */
+        .table-scroll-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .table-scroll-indicator {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            background: rgba(13, 139, 78, 0.8);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .table-scroll-container:hover .table-scroll-indicator {
+            opacity: 1;
+        }
+
         /* Responsive table */
-        @media (max-width: 650px) {
-            .events-table {
-                display: block;
+        @media (max-width: 768px) {
+            .table-scroll-container {
                 overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scroll-behavior: smooth;
             }
+            
+            .table-scroll-indicator {
+                opacity: 1;
+                animation: pulse 2s infinite;
+            }
+            
+            .events-table {
+                min-width: 600px; /* Force table to be wider than container */
+            }
+            
+            .events-table th,
+            .events-table td {
+                padding: 0.8rem 0.6rem;
+                font-size: 0.9rem;
+            }
+            
+            /* Visual cue for scrolling */
+            .table-scroll-container {
+                background: linear-gradient(to right, transparent 90%, rgba(13, 139, 78, 0.1));
+            }
+            
+            .table-scroll-container::-webkit-scrollbar {
+                height: 6px;
+            }
+            
+            .table-scroll-container::-webkit-scrollbar-thumb {
+                background-color: var(--primary);
+                border-radius: 3px;
+            }
+        }
+
+        @keyframes pulse {
+            0% { transform: translateY(-50%) scale(1); }
+            50% { transform: translateY(-50%) scale(1.1); }
+            100% { transform: translateY(-50%) scale(1); }
         }
 
         /* Footer */
@@ -423,6 +494,12 @@
             .section {
                 padding: 3rem 0;
             }
+            
+            .table-scroll-indicator {
+                right: 5px;
+                width: 25px;
+                height: 25px;
+            }
         }
         
         /* Print Styles */
@@ -460,6 +537,10 @@
             .page-break {
                 page-break-before: always;
             }
+            
+            .table-scroll-indicator {
+                display: none;
+            }
         }
     </style>
 </head>
@@ -476,10 +557,10 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="index.html#about" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="index.html#programs" class="nav-link">Programs</a></li>
-                    <li class="nav-item"><a href="index.html#admission" class="nav-link">Admission</a></li>
-                    <li class="nav-item"><a href="index.html#contact" class="nav-link">Contact</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#programs" class="nav-link">Programs</a></li>
+                    <li class="nav-item"><a href="#admission" class="nav-link">Admission</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
                 </ul>
             </nav>
 
@@ -520,7 +601,10 @@
                     </button>
                 </div>
                 
-                <div style="overflow-x: auto;">
+                <div class="table-scroll-container">
+                    <div class="table-scroll-indicator">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
                     <table class="events-table">
                         <thead>
                             <tr>
@@ -614,7 +698,7 @@
   <td>September 04, 2025</td>  
   <td>Rabiʿ al-Awwal 12</td>  
   <td>Mannil Thodi Abdurahman Haji</td> 
-  <td class=""><i class="fas fa-check-circle"></i></td>
+  <td class="tick"><i class="fas fa-check-circle"></i></td>
 </tr>
 <tr> 
   <td>13</td> 
@@ -925,8 +1009,34 @@
         document.getElementById('print-table-btn').addEventListener('click', function() {
             window.print();
         });
+        
+        // Auto-scroll table on mobile for better UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const tableContainer = document.querySelector('.table-scroll-container');
+            const scrollIndicator = document.querySelector('.table-scroll-indicator');
+            
+            // Only apply on mobile devices
+            if (window.innerWidth <= 768 && tableContainer) {
+                // Hide indicator after 5 seconds or when user starts scrolling
+                setTimeout(() => {
+                    scrollIndicator.style.opacity = '0';
+                }, 5000);
+                
+                tableContainer.addEventListener('scroll', () => {
+                    scrollIndicator.style.opacity = '0';
+                });
+                
+                // Auto-scroll a bit to show there's more content
+                setTimeout(() => {
+                    tableContainer.scrollBy({ left: 50, behavior: 'smooth' });
+                    
+                    // Scroll back after a delay
+                    setTimeout(() => {
+                        tableContainer.scrollBy({ left: -50, behavior: 'smooth' });
+                    }, 1000);
+                }, 1000);
+            }
+        });
     </script>
 </body>
-
 </html>
-
