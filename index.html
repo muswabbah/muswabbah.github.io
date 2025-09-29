@@ -136,6 +136,11 @@
             width: 100%;
             top: 0;
             z-index: 1000;
+            transition: transform 0.4s ease;
+        }
+
+        header.hidden {
+            transform: translateY(-100%);
         }
 
         .header-container {
@@ -206,12 +211,12 @@
         /* Updated Hero Section with Video */
         .hero {
             position: relative;
-            height: 100h;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            padding-top: 5cm;
+            padding-top: 0;
         }
 
         .video-background {
@@ -729,7 +734,7 @@
         <div class="container header-container">
             <div class="logo">
                 <a href="home.html">
-                    <img src="logo.png" alt="Your Logo" width="250" height="150">
+                    <div class="logo-text">Jamiul<span>Muswabbah</span></div>
                 </a>
             </div>
 
@@ -764,11 +769,17 @@
                 <h1 class="hero-title">Excellence in <span>Islamic Education</span> in Malappuram</h1>
                 <p class="hero-subtitle">Providing authentic Islamic knowledge with modern pedagogical approaches to nurture the next generation of Muslim scholars and community leaders.</p>
                 <div class="hero-buttons">
-                    <a href="moulid barakha.html" class="btn btn-primary">moulid barakha</a>
+                    <a href="moulid barakha.html" class="btn btn-primary">Moulid Barakha</a>
                     <a href="#admission" class="btn btn-primary">Enroll Now</a>
                     <a href="#programs" class="btn btn-outline">Explore Programs</a>
                 </div>
             </div>
+        </div>
+        
+        <div class="video-controls">
+            <button class="control-btn" id="muteToggle">
+                <i class="fas fa-volume-mute"></i>
+            </button>
         </div>
     </section>
 
@@ -1142,6 +1153,25 @@
             } else {
                 video.pause();
             }
+        });
+        
+        // Header hide on scroll up functionality
+        let lastScrollTop = 0;
+        const header = document.querySelector('header');
+        const scrollThreshold = 10; // Minimum scroll distance to trigger hide/show
+        
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            if (scrollTop > lastScrollTop && scrollTop > scrollThreshold) {
+                // Scrolling down
+                header.classList.add('hidden');
+            } else {
+                // Scrolling up
+                header.classList.remove('hidden');
+            }
+            
+            lastScrollTop = scrollTop;
         });
     </script>
 </body>
